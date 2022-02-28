@@ -1,25 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
+import store from "./app/store";
+import {Box} from "@mui/material"
+import Appbar from "./features/nav/Appbar";
+import Navbar from "./features/nav/Navbar";
+import Approutes from "./features/nav/Approutes";
+import {CommentList} from "./features/comments/CommentList";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Provider store={store}>
+            <div className="App">
+                <Appbar/>
+                <h1>Comments</h1>
+                <BrowserRouter>
+                    <Box>
+                        <Approutes/>
+                    </Box>
+                    <Navbar/>
+                </BrowserRouter>
+            </div>
+        </Provider>
+
+    );
 }
 
 export default App;
