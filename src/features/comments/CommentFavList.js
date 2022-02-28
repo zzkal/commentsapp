@@ -1,8 +1,8 @@
 import React,{useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {selectComments, selectFavs, selectPending} from "./CommentSlice";
-import {CommentCard} from "./CommentCard";
+import {selectComments, selectFavs, selectPending} from "./CommentSlice";   
 import {CircularProgress} from "@mui/material";
+import {CommentFavCard} from "./CommentFavCard";
 
 
 
@@ -20,7 +20,7 @@ export const CommentFavList = () => {
 
     return(
         <div>
-            {(pending)?<CircularProgress/>:favComments.map(e => <CommentCard key={e.id} comment={e}/>)}
+            {(pending)?<CircularProgress/>:favComments.map(e => <CommentFavCard key={e.id} comment={e}/>)}
         </div>
 
     )

@@ -2,12 +2,10 @@ import {useDispatch} from "react-redux"
 
 import Box from '@mui/material/Box';
 import {Button, Card, CardContent, Stack, Typography} from "@mui/material"
-import CardActions from '@mui/material/CardActions';
 import {Delete, Favorite, PlusOne, ThumbUp} from "@mui/icons-material"
 import {addLike, addToFav, deleteComment,} from "./CommentSlice";
-import {pink} from "@mui/material/colors";
 
-export const CommentCard = (props) => {
+export const CommentFavCard = (props) => {
 
     const dispatch = useDispatch()
 
@@ -19,21 +17,6 @@ export const CommentCard = (props) => {
             })
         )
     }
-    const handleAddLike = () => {
-        dispatch(
-            addLike({
-                id: props.comment.id,
-            })
-        )
-    }
-    const handleAddFav = () => {
-        dispatch(
-            addToFav({
-                id: props.comment.id,
-            })
-        )
-    }
-
 
     return (
         <Card sx={{marginBottom: 4}}>
@@ -49,15 +32,10 @@ export const CommentCard = (props) => {
                 <Stack direction="row" spacing={2}>
                     <Button startIcon={<Delete/>} variant={"contained"} color={"error"}
                             onClick={handleDelete}>Delete</Button>
-                    <Button variant="contained" color="success" onClick={handleAddLike}>Like</Button>
-                    <Favorite onClick={handleAddFav} sx={{ color: pink[500] }}/>
-                    <CardActions>
-                        <Button size="small">Learn More</Button>
-                    </CardActions>
                 </Stack>
             </CardContent>
         </Card>
     )
 
 }
-export default CommentCard
+export default CommentFavCard

@@ -1,6 +1,7 @@
 import {BottomNavigation, BottomNavigationAction, Box, Paper} from "@mui/material"
 import {Book, Comment, Favorite} from "@mui/icons-material"
 import {Link} from "react-router-dom"
+import {pink} from "@mui/material/colors";
 
 const Navbar = () => {
     return(
@@ -12,7 +13,7 @@ const Navbar = () => {
                 }}
             >
                 <BottomNavigationAction component={Link} to="/comments" label="Comments" icon={<Comment/>} />
-                <BottomNavigationAction component={Link} to="/favs" label="Favs" icon={<Favorite />} />
+                <BottomNavigationAction component={Link} to="/favs" label="Favs" icon={<Favorite />} sx={{ color: pink[500] }} />
             </BottomNavigation>
         </Paper>
     );
