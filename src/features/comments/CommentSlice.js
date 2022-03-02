@@ -29,17 +29,17 @@ export const commentSlice = createSlice({
                 state.comments = comments;
             },
             addLike(state, action) {
-
                 const comments = state.comments;
-                const commentToAddLike = comments[action.payload.id];
-                commentToAddLike.likes += 1;
+                const commentToAddLike = comments.findIndex(i => i.id === action.payload.id);
+                comments[commentToAddLike].likes++;
                 state.comments = comments;
 
 
             },
             addToFav(state, action){
                 const comments = state.comments;
-                state.favcomments.push(comments[action.payload.id]);
+                const commentAddToFavorite = comments.findIndex(i => i.id === action.payload.id);
+                state.favcomments.push(comments[commentAddToFavorite]);
 
             },
             // ExtraReducers (Asynchrone)
