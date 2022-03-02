@@ -12,7 +12,7 @@ const initialState = {
 export const fetchCommentsAsync = createAsyncThunk(
     'comments/fetch',
     async () => {
-        // La valeur retournée esr la `fulfilled` action payload
+        // La valeur retournée est la `fulfilled` action payload
         return await datacomments;
     }
 );
@@ -70,6 +70,7 @@ export const commentSlice = createSlice({
 export const selectComments = (state) => state.comments.comments;
 export const selectPending = (state) => state.comments.pending;
 export const selectFavs = (state) => state.comments.favcomments;
+export const selectFindedComments = (state) => state.comments.findcomments;
 
 export const {deleteComment, addLike, addToFav, searchComment} = commentSlice.actions;
 export default commentSlice.reducer;
