@@ -1,6 +1,8 @@
 import {alpha, AppBar, Box, IconButton, InputBase, styled, Toolbar, Typography} from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import {useDispatch} from "react-redux";
+import {searchComment} from "../comments/CommentSlice";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -46,6 +48,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+
+    const dispatch = useDispatch()
+
+    const handleChange = (event) => {
+      dispatch(
+          searchComment({
+              input: event.target.value
+          })
+      )
+    }
+    
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -74,6 +87,7 @@ export default function SearchAppBar() {
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={handleChange}
                         />
                     </Search>
                 </Toolbar>
