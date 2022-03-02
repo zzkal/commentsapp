@@ -7,6 +7,7 @@ const initialState = {
     pending: false,
     favcomments: [],
     findcomments: [],
+    exist: false,
 }
 
 export const fetchCommentsAsync = createAsyncThunk(
@@ -40,15 +41,28 @@ export const commentSlice = createSlice({
                 state.favcomments.push(comments[commentAddToFavorite]);
 
             },
-            searchComment(state, action){
-                let regExp = new RegExp(`^${action.payload.input}`,'ig')
+            searchComment(state, action) {
+                //Reg expresion
+                let regExp = new RegExp(`^${action.payload.input}`, 'ig')
+                //array of all comments
                 const allComments = state.comments;
+                //clear find array
                 state.findcomments = [];
+                //search existance
                 allComments.map((e) => {
-                    if(regExp.test(e.name) && action.payload.input != ""){
+                    if (regExp.test(e.name) && action.payload.input != "") {
                         state.findcomments.push(e);
                     }
                 });
+                //something wrote?
+                if (action.payload.lengthContent === 0) {
+                    state.exist = false;
+                } else {
+                    state.exist = true;
+                }
+                console.clear();
+                console.log(state.findcomments.length);
+                console.log(action.payload.lengthContent);
 
             },
             // ExtraReducers (Asynchrone)
@@ -71,6 +85,7 @@ export const selectComments = (state) => state.comments.comments;
 export const selectPending = (state) => state.comments.pending;
 export const selectFavs = (state) => state.comments.favcomments;
 export const selectFindedComments = (state) => state.comments.findcomments;
+export const selectExist = (state) => state.comments.exist;
 
 export const {deleteComment, addLike, addToFav, searchComment} = commentSlice.actions;
 export default commentSlice.reducer;

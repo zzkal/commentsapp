@@ -54,7 +54,8 @@ export default function SearchAppBar() {
     const handleChange = (event) => {
       dispatch(
           searchComment({
-              input: event.target.value
+              input: event.target.value,
+              lengthContent: event.target.value.length,
           })
       )
     }
