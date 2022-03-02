@@ -1,5 +1,6 @@
-import {alpha, AppBar, Box, styled, Toolbar, Typography} from "@mui/material"
-import {red} from "@mui/material/colors";
+import {alpha, AppBar, Box, IconButton, InputBase, styled, Toolbar, Typography} from "@mui/material"
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -27,18 +28,57 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-const Appbar = () => {
-    return(
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(1, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: '12ch',
+            '&:focus': {
+                width: '20ch',
+            },
+        },
+    },
+}));
+
+export default function SearchAppBar() {
+    return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" color={"error"}>
+            <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Commentaires
+                    {/*<IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 2 }}
+                    >
+                        <MenuIcon/>
+                    </IconButton>*/}
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                    >
+                        Comments
                     </Typography>
+                    <Search>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </Search>
                 </Toolbar>
             </AppBar>
         </Box>
-    )
+    );
 }
 
-export default Appbar
