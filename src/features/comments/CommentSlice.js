@@ -14,10 +14,8 @@ const initialState = {
 function requestSimulation() {
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve({
-                result: comments_complete
-            });
-        }, 2000);
+            resolve(comments_complete);
+        }, 500);
     });
 }
 
@@ -32,7 +30,7 @@ export const fetchCommentsAsync = createAsyncThunk(
 
 export const fetchCommentBySearch = createAsyncThunk(
     'comments/fetchCommentBySearch',
-    async (input,lengthContent) => {
+    async (input, lengthContent) => {
 
         //Reg expresion
         let regExp = new RegExp(`^${input}`, 'gi')
@@ -84,20 +82,20 @@ export const commentSlice = createSlice({
 
             },
             // ExtraReducers (Asynchrone)
-            extraReducers: (builder) => {
-                builder
-                    .addCase(fetchCommentsAsync.pending, (state) => {
-                        console.log("Loading movies...");
-                        state.pending = true;
-                    })
-                    .addCase(fetchCommentsAsync.fulfilled, (state, action) => {
-                        state.pending = false;
-                        state.comments = action.payload;
-                    });
-                // Il faudrait gérer l'erreur dans le cas d'une vraie requête !
-            },
 
-        }
+        },
+        extraReducers: (builder) => {
+            builder
+                .addCase(fetchCommentsAsync.pending, (state) => {
+                    console.log("Loading movies...");
+                    state.pending = true;
+                })
+                .addCase(fetchCommentsAsync.fulfilled, (state, action) => {
+                    state.pending = false;
+                    state.comments = action.payload;
+                });
+            // Il faudrait gérer l'erreur dans le cas d'une vraie requête !
+        },
     }
 );
 
