@@ -1,6 +1,13 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {selectComments, selectExist, selectFavs, selectFindedComments, selectPending} from "./CommentSlice";
+import {
+    fetchCommentBySearch, fetchCommentsAsync,
+    selectComments,
+    selectExist,
+    selectFavs,
+    selectFindedComments,
+    selectPending
+} from "./CommentSlice";
 import {CommentCard} from "./CommentCard";
 import {CircularProgress, Stack} from "@mui/material";
 
@@ -16,7 +23,7 @@ export const CommentList = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
+        dispatch(fetchCommentsAsync())
     }, []);
 
 

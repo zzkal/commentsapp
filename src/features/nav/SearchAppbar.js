@@ -1,11 +1,11 @@
-import {alpha, AppBar, Box, IconButton, InputBase, styled, Toolbar, Typography} from "@mui/material"
+import {alpha, AppBar, Box, InputBase, styled, Toolbar, Typography} from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import {useDispatch} from "react-redux";
-import {searchComment} from "../comments/CommentSlice";
+import {fetchCommentBySearch, searchComment} from "../comments/CommentSlice";
 
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({theme}) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -20,7 +20,7 @@ const Search = styled('div')(({ theme }) => ({
     },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({theme}) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -30,7 +30,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({theme}) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
@@ -52,16 +52,16 @@ export default function SearchAppBar() {
     const dispatch = useDispatch()
 
     const handleChange = (event) => {
-      dispatch(
-          searchComment({
-              input: event.target.value,
-              lengthContent: event.target.value.length,
-          })
-      )
+        dispatch(
+            fetchCommentBySearch(
+                event.target.value,
+                event.target.value.length,
+            )
+        )
     }
-    
+
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Toolbar>
                     {/*<IconButton
@@ -77,17 +77,17 @@ export default function SearchAppBar() {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                        sx={{flexGrow: 1, display: {xs: 'none', sm: 'block'}}}
                     >
                         Comments
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
-                            <SearchIcon />
+                            <SearchIcon/>
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
+                            inputProps={{'aria-label': 'search'}}
                             onChange={handleChange}
                         />
                     </Search>
