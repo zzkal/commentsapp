@@ -9,6 +9,8 @@ const initialState = {
     favcomments: [],
     findcomments: [],
     exist: false,
+    coloricon: "black",
+    coloriconfav: "black",
 }
 
 function requestSimulation() {
@@ -42,14 +44,32 @@ export const commentSlice = createSlice({
             addLike(state, action) {
                 const comments = state.comments;
                 const commentToAddLike = comments.findIndex(i => i.id === action.payload.id);
-                comments[commentToAddLike].likes++;
+                switch (state.coloricon) {
+                    case "black":
+                        action.payload.target.style.color = "green"
+                        comments[commentToAddLike].likes++;
+                        state.coloricon = "green";
+                        break;
+                    case "green":
+                        action.payload.target.style.color = "black"
+                        comments[commentToAddLike].likes--;
+                        state.coloricon = "black";
+                        break;
+                }
                 state.comments = comments;
             },
             addToFav(state, action) {
                 const comments = state.comments;
                 const commentAddToFavorite = comments.findIndex(i => i.id === action.payload.id);
-                state.favcomments.push(comments[commentAddToFavorite]);
-
+                if (state.coloriconfav === "black") {
+                    action.payload.target.style.color = "pink";
+                    state.coloriconfav = "pink";
+                    state.favcomments.push(comments[commentAddToFavorite]);
+                } else if(state.coloriconfav === "pink"){
+                    action.payload.target.style.color = "black";
+                    state.coloriconfav = "black";
+                    state.favcomments.splice(commentAddToFavorite, 1);
+                }
             },
             searchComment(state, action) {
                 //Reg expresion

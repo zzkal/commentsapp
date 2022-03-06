@@ -6,6 +6,12 @@ import {Delete, Favorite, PlusOne, ThumbDown, ThumbUp} from "@mui/icons-material
 import {addLike, addToFav, deleteComment,} from "./CommentSlice";
 import {pink} from "@mui/material/colors";
 import {Link} from "react-router-dom";
+import {useState} from "react";
+
+function handleMouseOver(e) {
+
+    e.target.style.color = 'green';
+}
 
 export const CommentCard = (props) => {
 
@@ -20,23 +26,27 @@ export const CommentCard = (props) => {
         )
     }
 
-    const handleAddLike = () => {
+    const handleAddLike = (event) => {
+
         dispatch(
             addLike({
                 id: props.comment.id,
+                target: event.target,
             })
         )
     }
 
-    const handleAddFav = () => {
+    const handleAddFav = (e) => {
+        e.target.style.color = 'pink';
         dispatch(
             addToFav({
                 id: props.comment.id,
+                target: e.target,
             })
         )
     }
 
-    const handleShowDes = () =>{
+    const handleShowDes = () => {
 
     }
 
@@ -47,16 +57,24 @@ export const CommentCard = (props) => {
                 <Typography variant="h5" component="div">
                     {props.comment.book}
                 </Typography>
-                <p>{props.comment.name}</p>
+                <Typography variant="h6" component ="div">
+                    <p>{props.comment.name}</p>
+                </Typography>
                 <p>{props.comment.rating}</p>
-                <p>{props.comment.likes} <ThumbUp color={"success"} fontSize="small"/></p>
+                <Typography fontWeight={700}>
+                    <p>{props.comment.likes} likes</p>
+                </Typography>
+                <Typography fontWeight={700}>
+                <p>{props.comment.dislikes} dislikes</p>
+                </Typography>
                 <p>{props.comment.stars_given}</p>
                 <p>{props.comment.date}</p>
                 <Stack direction="row" spacing={2}>
-                    <Delete  sx={{fontSize:40}} color={"error"} onClick={handleDelete}/>
-                    <ThumbUp sx={{fontSize: 40}} onClick={handleAddLike}/>
+                    <Delete sx={{fontSize: 40}} color={"error"} onClick={handleDelete}
+                            onMouseOver={event => handleMouseOver(event)}/>
+                    <ThumbUp sx={{fontSize: 40}} onClick={(e) => handleAddLike(e)}/>
                     <ThumbDown sx={{fontSize: 40}}/>
-                    <Favorite sx={{fontSize: 40}} onClick={handleAddFav}/>
+                    <Favorite sx={{fontSize: 40}} onClick={(e) => handleAddFav(e)}/>
                     <CardActions>
                         <Button size="small" component={Link} to="/desc">Learn More</Button>
                     </CardActions>
