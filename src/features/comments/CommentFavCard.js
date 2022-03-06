@@ -29,10 +29,6 @@ export const CommentFavCard = (props) => {
                 <p>{props.comment.likes} <ThumbUp color={"success"} fontSize="small"/></p>
                 <p>{props.comment.stars_given}</p>
                 <p>{props.comment.date}</p>
-                <Stack direction="row" spacing={2}>
-                    <Button startIcon={<Delete/>} variant={"contained"} color={"error"}
-                            onClick={handleDelete}>Delete</Button>
-                </Stack>
             </CardContent>
         </Card>
     )
