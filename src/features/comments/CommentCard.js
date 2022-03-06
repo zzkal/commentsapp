@@ -2,7 +2,7 @@ import {useDispatch} from "react-redux"
 
 import {Button, Card, CardContent, Stack, Typography} from "@mui/material"
 import CardActions from '@mui/material/CardActions';
-import {Delete, Favorite, PlusOne, ThumbUp} from "@mui/icons-material"
+import {Delete, Favorite, PlusOne, ThumbDown, ThumbUp} from "@mui/icons-material"
 import {addLike, addToFav, deleteComment,} from "./CommentSlice";
 import {pink} from "@mui/material/colors";
 import {Link} from "react-router-dom";
@@ -53,10 +53,10 @@ export const CommentCard = (props) => {
                 <p>{props.comment.stars_given}</p>
                 <p>{props.comment.date}</p>
                 <Stack direction="row" spacing={2}>
-                    <Button startIcon={<Delete/>} variant={"contained"} color={"error"}
-                            onClick={handleDelete}>Delete</Button>
-                    <Button variant="contained" color="success" onClick={handleAddLike}>Like</Button>
-                    <Favorite onClick={handleAddFav} sx={{ color: pink[500] }}/>
+                    <Delete  sx={{fontSize:40}} color={"error"} onClick={handleDelete}/>
+                    <ThumbUp sx={{fontSize: 40}} onClick={handleAddLike}/>
+                    <ThumbDown sx={{fontSize: 40}}/>
+                    <Favorite sx={{fontSize: 40}} onClick={handleAddFav}/>
                     <CardActions>
                         <Button size="small" component={Link} to="/desc">Learn More</Button>
                     </CardActions>
