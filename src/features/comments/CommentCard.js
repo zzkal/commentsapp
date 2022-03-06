@@ -81,9 +81,6 @@ export const CommentCard = (props) => {
                     <ThumbUp sx={{fontSize: 40}} onClick={(e) => handleAddLike(e)}/>
                     <ThumbDown sx={{fontSize: 40}} onClick={(e) => handleDisLike(e)}/>
                     <Favorite sx={{fontSize: 40}} onClick={(e) => handleAddFav(e)}/>
-                    <CardActions>
-                        <Button size="small" component={Link} to="/desc">Learn More</Button>
-                    </CardActions>
                 </Stack>
             </CardContent>
         </Card>
