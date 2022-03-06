@@ -10,6 +10,7 @@ const initialState = {
     findcomments: [],
     exist: false,
     coloricon: "black",
+    coloricondislike:"black",
     coloriconfav: "black",
 }
 
@@ -92,6 +93,23 @@ export const commentSlice = createSlice({
                     state.exist = true;
                 }
             },
+            disLike(state, action){
+                const comments = state.comments;
+                const commentToAddLike = comments.findIndex(i => i.id === action.payload.id);
+                switch (state.coloricondislike) {
+                    case "black":
+                        action.payload.target.style.color = "red"
+                        comments[commentToAddLike].dislikes++;
+                        state.coloricondislike = "red";
+                        break;
+                    case "red":
+                        action.payload.target.style.color = "black"
+                        comments[commentToAddLike].dislikes--;
+                        state.coloricondislike = "black";
+                        break;
+                }
+                state.comments = comments;
+            }
             // ExtraReducers (Asynchrone)
 
         },
@@ -117,5 +135,5 @@ export const selectFavs = (state) => state.comments.favcomments;
 export const selectFindedComments = (state) => state.comments.findcomments;
 export const selectExist = (state) => state.comments.exist;
 
-export const {deleteComment, addLike, addToFav, searchComment} = commentSlice.actions;
+export const {deleteComment, addLike, addToFav, searchComment,disLike} = commentSlice.actions;
 export default commentSlice.reducer;
