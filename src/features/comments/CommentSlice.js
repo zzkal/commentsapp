@@ -14,7 +14,7 @@ const initialState = {
 function requestSimulation() {
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve(comments_complete);
+            resolve(datacomments);
         }, 500);
     });
 }
@@ -28,34 +28,6 @@ export const fetchCommentsAsync = createAsyncThunk(
     }
 );
 
-export const fetchCommentBySearch = createAsyncThunk(
-    'comments/fetchCommentBySearch',
-    async (input, lengthContent) => {
-
-        //Reg expresion
-        let regExp = new RegExp(`^${input}`, 'gi')
-        //array of all comments
-        const allComments = this.state.comments;
-        //clear find array
-        this.state.findcomments = [];
-        //search existance
-
-        const response = await allComments.map((e) => {
-            if (regExp.test(e.name) && input != "") {
-                this.state.findcomments.push(e);
-            }
-        });
-        //something wrote?
-        if (lengthContent === 0) {
-            this.state.exist = false;
-        } else {
-            this.state.exist = true;
-        }
-        console.log(response);
-        return response;
-
-    });
-
 export const commentSlice = createSlice({
         name: 'comments',
         initialState,
@@ -65,6 +37,7 @@ export const commentSlice = createSlice({
                 const commentToDelete = state.comments.findIndex(i => i.id === action.payload.id);
                 comments.splice(commentToDelete, 1);
                 state.comments = comments;
+
             },
             addLike(state, action) {
                 const comments = state.comments;
@@ -79,7 +52,25 @@ export const commentSlice = createSlice({
 
             },
             searchComment(state, action) {
+                //Reg expresion
+                let regExp = new RegExp(`^${action.payload.input}`, 'gi');
+                //array of all comments
+                const allComments = state.comments;
+                //clear find array
+                state.findcomments = [];
+                //search existance
 
+                allComments.map((e) => {
+                    if (regExp.test(e.name) && action.payload.input !== "") {
+                        state.findcomments.push(e);
+                    }
+                });
+                //something wrote?
+                if (action.payload.length === 0) {
+                    state.exist = false;
+                } else {
+                    state.exist = true;
+                }
             },
             // ExtraReducers (Asynchrone)
 
@@ -94,6 +85,7 @@ export const commentSlice = createSlice({
                     state.pending = false;
                     state.comments = action.payload;
                 });
+
             // Il faudrait gérer l'erreur dans le cas d'une vraie requête !
         },
     }

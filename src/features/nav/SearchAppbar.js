@@ -52,12 +52,23 @@ export default function SearchAppBar() {
     const dispatch = useDispatch()
 
     const handleChange = (event) => {
-        dispatch(
+/*        dispatch(
             fetchCommentBySearch(
                 event.target.value,
                 event.target.value.length,
+            )*/
+        dispatch(
+            searchComment(
+                {
+                    input: event.target.value,
+                    length: event.target.value.length,
+                }
             )
+/*
+            fetchCommentBySearch(event.target.value, event.target.value.length)
+*/
         )
+
     }
 
     return (
